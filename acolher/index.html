@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 20px;
+        font-family: "Open Sans", sans-serif;
+      }
+      section {
+        max-width: 1060px;
+      }
+    </style>
+    <style>
+      .igesdf-cards {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        grid-template-columns:
+          minmax(min-content, 350px) minmax(min-content, 350px)
+          minmax(min-content, 350px);
+        gap: 20px;
+        width: 100%;
+      }
+      .igesdf-card {
+        border: 10px solid #ffffff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        position: relative;
+        overflow: hidden;
+      }
+      .igesdf-card img {
+        max-width: 100%;
+        height: auto;
+        aspect-ratio: 9/13;
+        object-fit: cover;
+        width: 100%;
+      }
+      .igesdf-card:hover img {
+        scale: 1.2;
+        transition: all 0.5s ease;
+      }
+      .legend {
+        position: absolute;
+        bottom: 0;
+        background-color: #1b1b1b9a;
+        color: #eeeded;
+        padding: 10px;
+        max-width: 100%;
+        height: 150px;
+        left: 0;
+      }
+      .legend h2 {
+        margin: 0 0 5px 0;
+        font-size: 1.3rem;
+      }
+      .legend p {
+        font-size: 1rem;
+        overflow-y: overlay;
+        height: 90px;
+        line-height: 1.4;
+        margin: 0;
+      }
+      .legend p::-webkit-scrollbar {
+        width: 6px;
+      }
+      .legend p::-webkit-scrollbar-track {
+        background: rgba(199, 199, 199, 0.2);
+        border-radius: 3px;
+      }
+      .legend p::-webkit-scrollbar-thumb {
+        background-color: rgba(27, 27, 27, 0.5);
+        border-radius: 3px;
+      }
+      @media (max-width: 960px) {
+        .igesdf-cards {
+          grid-template-columns: minmax(min-content, 350px) minmax(
+              min-content,
+              350px
+            );
+        }
+      }
+      @media (max-width: 400px) {
+        .igesdf-cards {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+          align-items: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section>
+      <ul class="igesdf-cards">
+        <li class="igesdf-card">
+          <img
+            src="https://igesdf.org.br/wp-content/uploads/2024/09/Ana-Elizabeth-–-Psicologa-1-scaled.jpg"
+            alt=""
+          />
+          <div class="legend">
+            <h2>Ana Elizabeth</h2>
+            <p>
+              Psicóloga, Graduada em Administração, tecnóloga em Gestão de
+              Recursos Humanos e Técnica em Enfermagem.
+            </p>
+          </div>
+        </li>
+        <li class="igesdf-card">
+          <img
+            src="https://igesdf.org.br/wp-content/uploads/2024/09/Anamaria-Pugsley-–-Psicologa-1-scaled.jpg"
+            alt=""
+          />
+          <div class="legend">
+            <h2>Anamaria Pugsley</h2>
+            <p>
+              Psicóloga clínica, com oito anos de experiência no atendimento ao
+              público infantojuvenil e adulto, com abordagem
+              cognitivo-comportamental (TCC).
+            </p>
+          </div>
+        </li>
+        <li class="igesdf-card">
+          <img
+            src="https://igesdf.org.br/wp-content/uploads/2024/09/Ahmed-scaled.jpg"
+            alt="Ahmed El Tassa"
+          />
+          <div class="legend">
+            <h2>Ahmed El Tassa</h2>
+            <p>
+              Médico, com ampla formação e experiência em Medicina Ocidental e
+              Oriental. Mestre em Filosofia da Medicina Chinesa pela Academia
+              Chinesa de Ciências Sociais (CASS), em Beijing – China.
+            </p>
+          </div>
+        </li>
+        <li class="igesdf-card">
+          <img
+            src="https://igesdf.org.br/wp-content/uploads/2024/09/Amsha-Carvalho-de-Lima-–-Psicologa-1-scaled.jpg"
+            alt="Amsha Carvalho de Lima"
+          />
+          <div class="legend">
+            <h2>Amsha Carvalho de Lima</h2>
+            <p>
+              Psicóloga, especialista em Neuropsicologia e Terapia
+              Cognitivo-Comportamental (TCC).
+            </p>
+          </div>
+        </li>
+        <li class="igesdf-card">
+          <img
+            src="https://igesdf.org.br/wp-content/uploads/2024/09/BRUNO-VIEIRA-CARVALHO-ASSISTENTE-EXECUTIVO-1-scaled.jpg"
+            alt="Bruno Vieira Carvalho Souza"
+          />
+          <div class="legend">
+            <h2>Bruno Vieira Carvalho Souza</h2>
+            <p>
+              Estudante de Psicologia e Psicanalista, atuando na equipe
+              administrativa.
+            </p>
+          </div>
+        </li>
+        <li class="igesdf-card">
+          <img
+            src="https://igesdf.org.br/wp-content/uploads/2024/09/Dalton-Augusto-Correia-Salles-–-Psicologo-1-scaled.jpg"
+            alt="Dalton Augusto Correia Salles"
+          />
+          <div class="legend">
+            <h2>Dalton Augusto Correia Salles</h2>
+            <p>
+              Psicólogo, pós-graduado em Psicologia Hospitalar, com
+              especialização em Dependência Química pela Secretaria Nacional
+              Antidrogas – MJ. Atuação profissional com terapia
+              cognitivo-comportamental (TCC), voltada para adultos, adolescentes
+              e casais.
+            </p>
+          </div>
+        </li>
+        <li class="igesdf-card">
+          <img
+            src="https://igesdf.org.br/wp-content/uploads/2024/09/Danielle-Afonso-Storck-Psicologa-1-scaled.jpg"
+            alt="Danielle Afonso Storck"
+          />
+          <div class="legend">
+            <h2>Danielle Afonso Storck</h2>
+            <p>
+              Psicóloga, especialista em Psicoterapia Analítica Comportamental,
+              com formação em Estimulação Cognitiva aplicada a idosos,
+              experiência em Psicologia Hospitalar e Saúde Mental.
+            </p>
+          </div>
+        </li>
+        <li class="igesdf-card">
+          <img
+            src="https://igesdf.org.br/wp-content/uploads/2024/09/Elizangela-Queiroz-Assistente-Executiva-1-scaled.jpg"
+            alt="Elizangêla Queiroz"
+          />
+          <div class="legend">
+            <h2>Elizangêla Queiroz</h2>
+            <p>
+              Graduada em Administração, tecnóloga em Gestão de Recursos Humanos
+              e Técnica em Enfermagem, com atuação na equipe administrativa.
+            </p>
+          </div>
+        </li>
+        <li class="igesdf-card">
+          <img
+            src="https://igesdf.org.br/wp-content/uploads/2024/09/ELLYS-REGINA-MONTALVAO-ASSIS-ADMINISTRATIVO-1.jpeg"
+            alt="Ellys Regina Montalvão"
+          />
+          <div class="legend">
+            <h2>Ellys Regina Montalvão</h2>
+            <p>
+              Designer de Interiores, com experiência em Faturamento Hospitalar,
+              tendo atuado na equipe administrativa.
+            </p>
+          </div>
+        </li>
+        <li class="igesdf-card">
+          <img
+            src="https://igesdf.org.br/wp-content/uploads/2024/09/Izabel-scaled.jpg"
+            alt="Izabel Regina de Oliveira"
+          />
+          <div class="legend">
+            <h2>Izabel Regina de Oliveira</h2>
+            <p>
+              Psicóloga, pós-graduanda em Psicologia Hospitalar e Neurociência
+              do Comportamento, com formação em Terapia Cognitivo-Comportamental
+              (TCC).
+            </p>
+          </div>
+        </li>
+        <li class="igesdf-card">
+          <img
+            src="https://igesdf.org.br/wp-content/uploads/2024/09/Igor-Wallace-de-Oliveira-Almeida-Psicologo-1-scaled.jpg"
+            alt="Igor Wallace de Oliveira Almeida"
+          />
+          <div class="legend">
+            <h2>Igor Wallace de Oliveira Almeida</h2>
+            <p>
+              Psicanalista clínico, pós-graduado em Psicossomática, com oito
+              anos de experiência em consultório clínico.
+            </p>
+          </div>
+        </li>
+        <li class="igesdf-card">
+          <img
+            src="https://igesdf.org.br/wp-content/uploads/2024/09/Marissol-Lonrenco-Hermann-–-Psiquiatra-1-scaled.jpg"
+            alt="Marissol Lourenço Hermann"
+          />
+          <div class="legend">
+            <h2>Marissol Lourenço Hermann</h2>
+            <p>
+              Médica formada pela Universidade Federal de Juiz de Fora, com
+              Residência Médica em Psiquiatria e experiência em Centro de
+              Atenção Psicossocial, onde atuou como responsável técnica.
+            </p>
+          </div>
+        </li>
+        <li class="igesdf-card">
+          <img
+            src="https://igesdf.org.br/wp-content/uploads/2024/09/Michelle-Christine-Oliveira-de-Souza-–-Nutricionista-1.jpeg"
+            alt="Michelle Christine Oliveira de Souza"
+          />
+          <div class="legend">
+            <h2>Michelle Christine Oliveira de Souza</h2>
+            <p>
+              Nutricionista, pós-graduada em Terapia Nutricional pela USP, com
+              formação em Nutrição Comportamental.
+            </p>
+          </div>
+        </li>
+        <li class="igesdf-card">
+          <img
+            src="https://igesdf.org.br/wp-content/uploads/2024/09/NAZARETH-CRISTINA-SANTOS-ARAUJO-PSIQUIATRA-1-scaled.jpg"
+            alt="Nazareth Cristina Santos Araujo"
+          />
+          <div class="legend">
+            <h2>Nazareth Cristina Santos Araujo</h2>
+            <p>
+              Médica Formada pela Universidade Estadual do Pará. Especialista em
+              Psiquiatria e Medicina do Trabalho.
+            </p>
+          </div>
+        </li>
+        <li class="igesdf-card">
+          <img
+            src="https://igesdf.org.br/wp-content/uploads/2024/09/Paula-Paiva-Chefe-de-Nucleo-1.jpeg"
+            alt="Paula Paiva"
+          />
+          <div class="legend">
+            <h2>Paula Paiva</h2>
+            <p>
+              Psicóloga, pós-graduada em Gestão de Pessoas e tecnóloga em Gestão
+              de Recursos Humanos. Atua como Chefe do Núcleo de Qualidade de
+              Vida no Trabalho desde julho de 2024.
+            </p>
+          </div>
+        </li>
+        <li class="igesdf-card">
+          <img
+            src="https://igesdf.org.br/wp-content/uploads/2024/09/Vanessa-Alves-Cardoso-Psicologa-1-scaled.jpg"
+            alt="Vanessa Alves Cardoso"
+          />
+          <div class="legend">
+            <h2>Vanessa Alves Cardoso</h2>
+            <p>
+              Neuropsicóloga especialista em Avaliação Psicológica e Psicologia
+              Hospitalar e da Saúde. Vasta experiência na área clínica e atuante
+              há mais de quinze anos.
+            </p>
+          </div>
+        </li>
+      </ul>
+    </section>
+  </body>
+</html>

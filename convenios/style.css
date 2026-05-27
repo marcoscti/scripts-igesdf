@@ -1,0 +1,23 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-family: sans-serif;
+}
+.marcoscti-table-custom {
+  border-collapse: collapse;
+  width: 100%;
+}
+.marcoscti-table-custom tbody td {
+  border: 1px solid #000;
+  text-align: left;
+  padding: 8px;
+}
+.marcoscti-table-custom .head {
+  border: 1px solid #000;
+  background-color: #0094c6;
+  padding: 8px;
+}
+.marcoscti-table-custom tbody tr:nth-child(even) {
+  background-color: #0094c63e;
+}
