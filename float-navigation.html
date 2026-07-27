@@ -34,7 +34,15 @@
     </a>
 
     <ul class="floatingMenu">
-      <li><a href="#a">A</a></li>
+      <li><a href="#conselho-fiscal">Conselho Fiscal</a></li>
+      <li><a href="#base-legal">Base Legal</a></li>
+      <li><a href="#composicao-atual">Composição Atual</a></li>
+      <li><a href="#agenda-de-reunioes">Agenda de Reuniões</a></li>
+      <li><a href="#resolucoes">Resoluções</a></li>
+      <li><a href="#atas-de-reunioes">Atas de Reuniões</a></li>
+      <li><a href="#eleicoes">Eleições</a></li>
+      <li><a href="#membros-anteriores">Membros Anteriores</a></li>
+      <li><a href="#contato">Contato</a></li>
     </ul>
   </div>
 </div>
@@ -42,7 +50,6 @@
 <style>
   body {
     min-height: 300vh;
-    background: #fafbff;
   }
 
   .floatingButtonWrap {
@@ -148,13 +155,18 @@
     if (!floatingButton || !floatingMenu) return;
 
     // Abre / Fecha menu
+    floatingButton.addEventListener("mouseenter", (e) => {
+      e.preventDefault();
+
+      floatingButton.classList.toggle("open");
+      floatingMenu.classList.toggle("open");
+    });
     floatingButton.addEventListener("click", (e) => {
       e.preventDefault();
 
       floatingButton.classList.toggle("open");
       floatingMenu.classList.toggle("open");
     });
-
     // Clique nos itens
     floatingMenu.addEventListener("click", (e) => {
       const link = e.target.closest("a");
