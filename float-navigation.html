@@ -173,8 +173,6 @@
 
       if (!link) return;
 
-      e.preventDefault();
-
       const destino = document.querySelector(link.getAttribute("href"));
 
       if (destino) {
@@ -183,7 +181,7 @@
           block: "start",
         });
       }
-
+      history.pushState(null, "", link.getAttribute("href"));
       floatingButton.classList.remove("open");
       floatingMenu.classList.remove("open");
     });
