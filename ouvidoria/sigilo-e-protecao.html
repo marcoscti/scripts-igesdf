@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+     <style>
+        .sigilo-container {
+            display: flex;
+            gap: 40px;
+        }
+
+        .sigilo-container .sigilo-title {
+            font-size: 48px;
+            text-transform: uppercase;
+            position: relative;
+        }
+
+        .sigilo-container .left {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .sigilo-container .left p.sigilo-subtitle {
+            font-size: 32px;
+            margin-top: 15px;
+            margin-bottom: 110px;
+        }
+
+        .sigilo-container .sigilo-title {
+            color: #2B5584;
+        }
+
+        .sigilo-container .sigilo-title::before {
+            width: 100px;
+            height: 4px;
+            background-color: orange;
+            position: absolute;
+            bottom: -20px;
+            content: "";
+        }
+
+        .sigilo-container .left .sub-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .sigilo-container .left .sub-container .subcontainer-card {
+            border-radius: 10px;
+            border: 4px solid #2B5584;
+            padding: 10px;
+            display: block;
+            text-decoration: none;
+            position: relative;
+        }
+
+        .sigilo-container .left .sub-container .subcontainer-card.blue h1 {
+            color: #2B5584;
+        }
+
+        .sigilo-container .left .sub-container .subcontainer-card.blue::before {
+            content: "→";
+            position: absolute;
+            top: 30%;
+            right: -32px;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #2B5584;
+        }
+
+        .sigilo-container .left .sub-container .subcontainer-card.green::before {
+            content: "→";
+            position: absolute;
+            top: 30%;
+            right: -32px;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #156674;
+        }
+
+        .sigilo-container .left .sub-container .subcontainer-card.blue p,
+        .sigilo-container .left .sub-container .subcontainer-card.green p {
+            color: black;
+        }
+
+        .sigilo-container .left .sub-container .subcontainer-card.blue h2,
+        .sigilo-container .left .sub-container .subcontainer-card.blue {
+            border-color: #2B5584;
+            color: #2B5584;
+        }
+
+        .sigilo-container .left .sub-container .subcontainer-card.green h2,
+        .sigilo-container .left .sub-container .subcontainer-card.green {
+            border-color: #156674;
+            color: #156674;
+        }
+
+        .sigilo-container .left .sub-container .subcontainer-card.orange h2,
+        .sigilo-container .left .sub-container .subcontainer-card.orange {
+            border-color: #F47721;
+            color: #F47721 !important;
+        }
+
+        .sigilo-container .left .sub-container .subcontainer-card:hover {
+            box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.541);
+        }
+
+        .sigilo-container .left .sub-container .subcontainer-card h2 {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .sigilo-container .left .sub-container .subcontainer-card p {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .sigilo-container .right img {
+            width: 100%;
+            height: 600px;
+            object-fit: contain;
+        }
+
+        @media (max-width: 1024px) {
+            .sigilo-container {
+                flex-direction: column-reverse;
+                padding: 0 10px;
+                align-items: center;
+            }
+
+            .sigilo-container .left {
+                max-width: unset;
+            }
+
+            .sigilo-container .left .sub-container {
+                flex-direction: column;
+            }
+
+            .sigilo-container .left .sub-container .subcontainer-card.blue::before {
+                display: none;
+            }
+
+            .sigilo-container .left .sub-container .subcontainer-card.green::before {
+                display: none;
+            }
+
+            .sigilo-container .sigilo-title {
+                font-size: 32px;
+            }
+
+            .sigilo-container .left p.sigilo-subtitle {
+                margin-bottom: 24px;
+            }
+        }
+        @media (max-width:520px){
+            .sigilo-container .sigilo-title {
+                font-size: 24px;
+            }
+            .sigilo-container .left p.sigilo-subtitle {
+            font-size: 24px;
+            margin-top: 15px;
+            margin-bottom: 20px;
+        }
+        }
+    </style>
+    <section class="sigilo-container">
+        <div class="left">
+            <h1 class="sigilo-title">Sigilo e Proteção ao Denunciante</h1>
+            <p class="sigilo-subtitle">Seu relato é tratato com restrição e sigilo em todas as etapas.</p>
+            <div class="sub-container">
+                <a class="subcontainer-card blue"
+                    href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm" target="_blank">
+                    <h2>Lei Federal nº 13.709/2018:</h2>
+                    <p>Proteção de Dados</p>
+                </a>
+                <a class="subcontainer-card green"
+                    href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13608.htm" target="_blank">
+                    <h2>Lei Federal nº 13.608/2018:</h2>
+                    <p>Proteção de identidade do manifestante</p>
+                </a>
+                <a class="subcontainer-card orange"
+                    href="https://www.sinj.df.gov.br/sinj/Norma/5a81e5f812b6427294c19a599411b028/Decreto_46174_22_08_2024.html"
+                    target="_blank">
+                    <h2>Decreto Distrital nº 46.174/2024:</h2>
+                    <p>Competências do sistema de ouvidoria</p>
+                </a>
+            </div>
+        </div>
+        <div class="right">
+            <img src="https://igesdf.org.br/wp-content/uploads/2026/11/Livro-Confidencial-com-Protecao-Digital.png"
+                alt="Ícone">
+        </div>
+    </section>
+</body>
+
+</html>

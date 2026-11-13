@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        .tipologia-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .tipologia-card {
+            box-sizing: border-box;
+            width: 180px !important;
+            margin: 0;
+            padding: 12px 22px !important;
+
+            text-decoration: none;
+            border: 2px solid rgba(255, 255, 255, .45);
+            border-radius: 999px;
+
+            background: linear-gradient(145deg,
+                    var(--cor-clara, var(--cor)),
+                    var(--cor));
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            box-shadow:
+                0 4px 8px rgba(0, 0, 0, .12),
+                inset 0 1px 1px rgba(255, 255, 255, .35);
+
+            transition:
+                transform .25s ease,
+                box-shadow .25s ease,
+                border-color .25s ease,
+                filter .25s ease;
+        }
+
+        .tipologia-card h2 {
+            margin: 0 !important;
+            color: var(--cor-texto, #fff);
+            font-size: clamp(1.2rem, 3vw, 1.65rem);
+            line-height: 1.2;
+            text-align: center;
+            font-weight: 600;
+            transition: transform .25s ease;
+        }
+
+        /* Hover */
+        .tipologia-card:hover {
+            transform: translateY(-3px);
+            filter: brightness(1.06);
+
+            border-color: rgba(255, 255, 255, .8);
+
+            box-shadow:
+                0 8px 16px rgba(0, 0, 0, .16),
+                inset 0 1px 2px rgba(255, 255, 255, .4);
+        }
+
+        .tipologia-card:hover h2 {
+            transform: scale(1.03);
+        }
+
+        /* Estado ativo */
+        .tipologia-card.is-active,
+        .tipologia-card[aria-current="page"] {
+            transform: translateY(-2px);
+
+            border-color: var(--cor-borda);
+            box-shadow:
+                0 0 0 4px var(--cor-foco),
+                0 6px 14px rgba(0, 0, 0, .18),
+                inset 0 2px 3px rgba(255, 255, 255, .3);
+
+            filter: brightness(1.05);
+        }
+
+        /* Acessibilidade */
+        .tipologia-card:focus-visible {
+            outline: 3px solid var(--cor);
+            outline-offset: 5px;
+        }
+
+        .tipologia-card:active {
+            transform: translateY(0) scale(.97);
+        }
+
+        /* Cores das tipologias */
+
+        .reclamacao {
+            --cor: #EDAA07;
+            --cor-clara: #FFC52E;
+            --cor-texto: #0c212b;
+            --cor-borda: #9c6c00;
+            --cor-foco: rgba(237, 170, 7, .25);
+        }
+
+        .elogio {
+            --cor: #0BB40B;
+            --cor-clara: #20D020;
+            --cor-texto: #fff;
+            --cor-borda: #087508;
+            --cor-foco: rgba(11, 180, 11, .25);
+        }
+
+        .denuncia {
+            --cor: #e64a19;
+            --cor-clara: #FF652E;
+            --cor-texto: #fff;
+            --cor-borda: #a8320e;
+            --cor-foco: rgba(230, 74, 25, .28);
+        }
+
+        .solicitacao {
+            --cor: #0094c6;
+            --cor-clara: #12B4E8;
+            --cor-texto: #fff;
+            --cor-borda: #006b91;
+            --cor-foco: rgba(0, 148, 198, .25);
+        }
+
+        .sugestao {
+            --cor: #ffed00;
+            --cor-clara: #FFF65C;
+            --cor-texto: #0c212b;
+            --cor-borda: #b5a900;
+            --cor-foco: rgba(255, 237, 0, .3);
+        }
+
+        .informacoes {
+            --cor: #7950b8;
+            --cor-clara: #966BCF;
+            --cor-texto: #fff;
+            --cor-borda: #56358a;
+            --cor-foco: rgba(121, 80, 184, .25);
+        }
+
+        /* Responsividade */
+        @media (max-width: 600px) {
+            .tipologia-cards {
+                gap: 12px;
+            }
+
+            .tipologia-card {
+                width: calc(50% - 6px) !important;
+                padding: 10px 12px !important;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .tipologia-card,
+            .tipologia-card h2 {
+                transition: none;
+            }
+        }
+    </style>
+    <main class="tipologia-cards" aria-label="Tipologias de manifestações">
+        <a class="tipologia-card elogio" href="/elogio/">
+            <h2>Elogio</h2>
+        </a>
+        <a class="tipologia-card reclamacao" href="/reclamacao/">
+            <h2>Reclamação</h2>
+        </a>
+        <a class="tipologia-card denuncia" href="/denuncia-ouvidoria">
+            <h2>Denúncia</h2>
+        </a>
+        <a class="tipologia-card solicitacao" href="/solicitacao">
+            <h2>Solicitação</h2>
+        </a>
+        <a class="tipologia-card sugestao" href="/sugestao">
+            <h2>Sugestão</h2>
+        </a>
+        <a class="tipologia-card informacoes" href="/informacoes">
+            <h2>Informações</h2>
+        </a>
+    </main>
+    <script>
+        const normalizarCaminho = (caminho) => caminho.replace(/\/+$/, "") || "/";
+        const caminhoAtual = normalizarCaminho(window.location.pathname);
+
+        document.querySelectorAll(".tipologia-card").forEach((card) => {
+            const caminhoDestino = normalizarCaminho(new URL(card.href, window.location.href).pathname);
+            const paginaCorresponde =
+                caminhoAtual === caminhoDestino || caminhoAtual.endsWith(caminhoDestino);
+
+            if (paginaCorresponde) {
+                card.classList.add("is-active");
+                card.setAttribute("aria-current", "page");
+            }
+        });
+    </script>
+</body>
+
+</html>

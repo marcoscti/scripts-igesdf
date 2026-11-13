@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        section.page {
+            width: min(1440px, 100%);
+            margin: 0 auto;
+        }
+
+        h1.fluxo-title {
+            margin: 0 0 8px;
+            color: #2B5584;
+            font-size: 48px;
+            font-weight: 500;
+            letter-spacing: 0.045em;
+            text-transform: uppercase;
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        h1.fluxo-title:before {
+            width: 82px;
+            height: 4px;
+            margin-bottom: clamp(34px, 6vw, 72px);
+            background: orange;
+            content: "";
+            position: absolute;
+            bottom: -135%;
+        }
+
+        .flowchart {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(135px, 1fr)) minmax(180px, 1fr) minmax(230px, 1.3fr) minmax(170px, .9fr);
+            grid-template-rows: minmax(74px, auto) auto minmax(74px, auto);
+            align-items: center;
+            position: relative;
+            padding: clamp(25px, 4vw, 48px) clamp(18px, 3vw, 38px);
+            border: 3px solid #a7e2e8;
+            border-radius: 48% 52% 47% 53% / 49% 45% 55% 51%;
+            background: rgb(255 255 255 / 54%);
+        }
+
+        .stage {
+            position: relative;
+            display: flex;
+            min-width: 0;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            outline: none;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .stage::after {
+            position: absolute;
+            z-index: 1;
+            top: 27px;
+            right: 25px;
+
+            content: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8' standalone='no'%3F%3E%3C!-- Created with Inkscape (http://www.inkscape.org/) --%3E%3Csvg width='100' height='35.820999' viewBox='0 0 30.814696 9.4776393' version='1.1' id='svg1' xml:space='preserve' inkscape:version='1.4.4 (dcaf3e7d9e, 2026-05-05)' sodipodi:docname='arrow.svg' xmlns:inkscape='http://www.inkscape.org/namespaces/inkscape' xmlns:sodipodi='http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd' xmlns='http://www.w3.org/2000/svg' xmlns:svg='http://www.w3.org/2000/svg'%3E%3Csodipodi:namedview id='namedview1' pagecolor='%23ffffff' bordercolor='%23000000' borderopacity='0.25' inkscape:showpageshadow='2' inkscape:pageopacity='0.0' inkscape:pagecheckerboard='0' inkscape:deskcolor='%23d1d1d1' inkscape:document-units='px' inkscape:zoom='0.6148099' inkscape:cx='268.37564' inkscape:cy='473.31703' inkscape:window-width='1920' inkscape:window-height='1043' inkscape:window-x='0' inkscape:window-y='0' inkscape:window-maximized='1' inkscape:current-layer='layer1' /%3E%3Cdefs id='defs1' /%3E%3Cg inkscape:label='Camada 1' inkscape:groupmode='layer' id='layer1'%3E%3Cpath style='fill:%23000000' d='m 22.75423,9.1396107 c 0,-0.67029 0.85635,-1.53689 2.183072,-2.20919 1.62045,-0.82114 1.480122,-0.94445 -1.653905,-1.45329 -1.662335,-0.2699 -4.992287,-0.35921 -12.766146,-0.34239 -5.7844539,0.0125 -10.517187903507,-0.0603 -10.517187903507,-0.16171 0,-0.35435 2.923281003507,-1.29893 5.881637003507,-1.90051 2.613668,-0.53148 3.700723,-0.60257 8.8027379,-0.57564 3.901944,0.0206 6.689496,0.16953 8.455868,0.45177 1.449268,0.23158 2.684474,0.37161 2.744901,0.31118 0.06043,-0.0604 -0.202603,-0.48122 -0.584512,-0.93509 -1.338399,-1.59060001 -0.701009,-3.03558001 0.857492,-1.94397001 0.866905,0.60721 4.810742,5.42280001 4.651773,5.68001001 -0.07263,0.11753 -1.483183,0.93439 -3.134553,1.81526 -2.085656,1.11252 -3.295434,1.60157 -3.961834,1.60157 -0.602097,0 -0.959343,-0.12587 -0.959343,-0.338 z' id='path1' /%3E%3C/g%3E%3C/svg%3E%0A");
+            filter: invert(73%) sepia(67%) saturate(543%) hue-rotate(355deg) brightness(98%) contrast(93%);
+            width: 40px;
+            line-height: 1;
+            transition: transform 450ms cubic-bezier(.2, .8, .2, 1), color 250ms ease;
+            animation: arrow-flow 900ms ease-in-out infinite alternate;
+        }
+
+        .stage[data-step="1"],
+        .stage[data-step="2"],
+        .stage[data-step="3"] {
+            grid-row: 2;
+        }
+
+        .stage[data-step="3"]::after {
+            color: #0876b9;
+        }
+
+        .stage[data-step="4"] {
+            grid-column: 6;
+            grid-row: 2;
+        }
+
+        .stage[data-step="4"]::after {
+            content: none;
+        }
+
+        .stage-number {
+            display: grid;
+            width: clamp(76px, 8vw, 96px);
+            aspect-ratio: 1;
+            place-items: center;
+            border: 4px solid #0876b9;
+            border-radius: 50%;
+            background: #fff;
+            box-shadow: 0 0 0 6px rgb(8 118 185 / 8%);
+            color: #0876b9;
+            font-size: clamp(1.35rem, 2.5vw, 1.7rem);
+            font-weight: 700;
+            transition: transform 300ms ease, box-shadow 300ms ease, border-color 300ms ease;
+        }
+
+        .stage[data-step="2"] .stage-number {
+            border-color: #08b8c5;
+            color: #08a7b8;
+        }
+
+        .stage-icon {
+            display: grid;
+            width: 62px;
+            height: 62px;
+            margin-top: 16px;
+            place-items: center;
+            border: 2px solid #0876b9;
+            border-radius: 50%;
+            background: #fff;
+            color: #0876b9;
+        }
+
+        .stage[data-step="2"] .stage-icon {
+            border-color: #08b8c5;
+            color: #08a7b8;
+        }
+
+        .stage-icon svg {
+            width: 42px;
+            height: 42px;
+            fill: none;
+            stroke: currentColor;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-width: 1.7;
+        }
+
+        .stage h2 {
+            max-width: 155px;
+            margin: 8px 0 0;
+            color: #173f59;
+            font-size: clamp(0.95rem, 1.6vw, 1.12rem);
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .stage:hover .stage-number,
+        .stage:focus-visible .stage-number,
+        .stage.is-active .stage-number {
+            transform: scale(1.07);
+            box-shadow: 0 0 0 8px rgb(8 118 185 / 13%);
+        }
+
+        .stage[data-step="2"]:hover .stage-number,
+        .stage[data-step="2"]:focus-visible .stage-number,
+        .stage[data-step="2"].is-active .stage-number {
+            box-shadow: 0 0 0 8px rgb(8 184 197 / 15%);
+        }
+
+        .stage:hover::after,
+        .stage:focus-visible::after,
+        .stage.is-active::after {
+            transform: translateX(9px) scale(1.12);
+            color: #f47721;
+        }
+
+        .decision-area {
+            grid-column: 4;
+            grid-row: 2;
+            display: grid;
+            min-height: 180px;
+            place-items: center;
+        }
+
+        .decision {
+            display: grid;
+            width: clamp(142px, 15vw, 178px);
+            aspect-ratio: 1;
+            place-items: center;
+            position: relative;
+            border: 5px solid #dda829;
+            border-radius: 50%;
+            background: #fff;
+            color: #0876b9;
+            font-size: clamp(1rem, 1.8vw, 1.2rem);
+            font-weight: 700;
+            text-align: center;
+            transition: transform 350ms ease, box-shadow 350ms ease;
+        }
+
+        .decision::before,
+        .decision::after {
+            position: absolute;
+            border: 4px solid #f3cb4e;
+            border-radius: 50%;
+            content: "";
+            inset: -14px;
+            pointer-events: none;
+            transition: inset 350ms ease, opacity 350ms ease;
+        }
+
+        .decision::after {
+            border-color: #f2bf24;
+            inset: -23px;
+            opacity: 0.62;
+        }
+
+        .decision.is-pulsing {
+            animation: decision-pulse 1.2s ease-in-out infinite;
+        }
+
+        .decision.is-pulsing::before {
+            animation: ring-pulse 1.2s ease-out infinite;
+        }
+
+        .decision.is-pulsing::after {
+            animation: ring-pulse 1.2s 180ms ease-out infinite;
+        }
+
+        @keyframes decision-pulse {
+            50% {
+                transform: scale(1.045);
+                box-shadow: 0 0 0 8px rgb(242 191 36 / 16%);
+            }
+        }
+
+        @keyframes ring-pulse {
+            0% {
+                opacity: 0.72;
+            }
+
+            100% {
+                opacity: 0;
+                inset: -34px;
+            }
+        }
+
+        .outcomes {
+            display: contents;
+        }
+
+        .outcome--no,
+        .outcome--yes {
+            grid-column: 5;
+            position: relative;
+            justify-self: stretch;
+            align-self: center;
+        }
+
+        .outcome--no {
+            grid-row: 1;
+            background-color: #f4b78e;
+        }
+
+        .outcome--yes {
+            grid-row: 3;
+            background-color: #9dc5dea4;
+        }
+
+        .outcome--no:hover,
+        .outcome--yes:hover {
+            transform: scale(1.1);
+            transition: .8s;
+            cursor: default;
+        }
+
+        .outcome {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-height: 58px;
+            padding: 10px 16px;
+            border: 1.5px solid #f47721;
+            border-radius: 999px;
+            color: #174b6a;
+            font-size: clamp(0.82rem, 1.35vw, 0.98rem);
+            font-weight: 700;
+            line-height: 1.2;
+            position: relative;
+            max-width: 300px;
+            margin-top: -5px;
+        }
+
+        .outcome--yes {
+            padding: 20px 16px;
+        }
+
+        .outcome--no::before,
+        .outcome--yes::before {
+            position: absolute;
+            left: -43px;
+            color: #0876b9;
+            font-size: 53px;
+            line-height: 1;
+            animation: branch-flow 900ms ease-in-out infinite alternate;
+        }
+
+        .outcome--no::before {
+            top: 70%;
+            content: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8' standalone='no'%3F%3E%3C!-- Created with Inkscape (http://www.inkscape.org/) --%3E%3Csvg width='60' height='35.820999' viewBox='0 0 30.814696 9.4776393' version='1.1' id='svg1' xml:space='preserve' inkscape:version='1.4.4 (dcaf3e7d9e, 2026-05-05)' sodipodi:docname='arrow.svg' xmlns:inkscape='http://www.inkscape.org/namespaces/inkscape' xmlns:sodipodi='http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd' xmlns='http://www.w3.org/2000/svg' xmlns:svg='http://www.w3.org/2000/svg'%3E%3Csodipodi:namedview id='namedview1' pagecolor='%23ffffff' bordercolor='%23000000' borderopacity='0.25' inkscape:showpageshadow='2' inkscape:pageopacity='0.0' inkscape:pagecheckerboard='0' inkscape:deskcolor='%23d1d1d1' inkscape:document-units='px' inkscape:zoom='0.6148099' inkscape:cx='268.37564' inkscape:cy='473.31703' inkscape:window-width='1920' inkscape:window-height='1043' inkscape:window-x='0' inkscape:window-y='0' inkscape:window-maximized='1' inkscape:current-layer='layer1' /%3E%3Cdefs id='defs1' /%3E%3Cg inkscape:label='Camada 1' inkscape:groupmode='layer' id='layer1'%3E%3Cpath style='fill:%23000000' d='m 22.75423,9.1396107 c 0,-0.67029 0.85635,-1.53689 2.183072,-2.20919 1.62045,-0.82114 1.480122,-0.94445 -1.653905,-1.45329 -1.662335,-0.2699 -4.992287,-0.35921 -12.766146,-0.34239 -5.7844539,0.0125 -10.517187903507,-0.0603 -10.517187903507,-0.16171 0,-0.35435 2.923281003507,-1.29893 5.881637003507,-1.90051 2.613668,-0.53148 3.700723,-0.60257 8.8027379,-0.57564 3.901944,0.0206 6.689496,0.16953 8.455868,0.45177 1.449268,0.23158 2.684474,0.37161 2.744901,0.31118 0.06043,-0.0604 -0.202603,-0.48122 -0.584512,-0.93509 -1.338399,-1.59060001 -0.701009,-3.03558001 0.857492,-1.94397001 0.866905,0.60721 4.810742,5.42280001 4.651773,5.68001001 -0.07263,0.11753 -1.483183,0.93439 -3.134553,1.81526 -2.085656,1.11252 -3.295434,1.60157 -3.961834,1.60157 -0.602097,0 -0.959343,-0.12587 -0.959343,-0.338 z' id='path1' /%3E%3C/g%3E%3C/svg%3E%0A");
+            transform: rotate(-45deg);
+            width: 15px;
+            filter: invert(65%) sepia(53%) saturate(4540%) hue-rotate(346deg) brightness(98%) contrast(96%);
+            left: -60px;
+        }
+
+        .outcome--yes::before {
+            top: -40%;
+            left: -49px;
+            content: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8' standalone='no'%3F%3E%3C!-- Created with Inkscape (http://www.inkscape.org/) --%3E%3Csvg width='50' height='35.820999' viewBox='0 0 30.814696 9.4776393' version='1.1' id='svg1' xml:space='preserve' inkscape:version='1.4.4 (dcaf3e7d9e, 2026-05-05)' sodipodi:docname='arrow.svg' xmlns:inkscape='http://www.inkscape.org/namespaces/inkscape' xmlns:sodipodi='http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd' xmlns='http://www.w3.org/2000/svg' xmlns:svg='http://www.w3.org/2000/svg'%3E%3Csodipodi:namedview id='namedview1' pagecolor='%23ffffff' bordercolor='%23000000' borderopacity='0.25' inkscape:showpageshadow='2' inkscape:pageopacity='0.0' inkscape:pagecheckerboard='0' inkscape:deskcolor='%23d1d1d1' inkscape:document-units='px' inkscape:zoom='0.6148099' inkscape:cx='268.37564' inkscape:cy='473.31703' inkscape:window-width='1920' inkscape:window-height='1043' inkscape:window-x='0' inkscape:window-y='0' inkscape:window-maximized='1' inkscape:current-layer='layer1' /%3E%3Cdefs id='defs1' /%3E%3Cg inkscape:label='Camada 1' inkscape:groupmode='layer' id='layer1'%3E%3Cpath style='fill:%23000000' d='m 22.75423,9.1396107 c 0,-0.67029 0.85635,-1.53689 2.183072,-2.20919 1.62045,-0.82114 1.480122,-0.94445 -1.653905,-1.45329 -1.662335,-0.2699 -4.992287,-0.35921 -12.766146,-0.34239 -5.7844539,0.0125 -10.517187903507,-0.0603 -10.517187903507,-0.16171 0,-0.35435 2.923281003507,-1.29893 5.881637003507,-1.90051 2.613668,-0.53148 3.700723,-0.60257 8.8027379,-0.57564 3.901944,0.0206 6.689496,0.16953 8.455868,0.45177 1.449268,0.23158 2.684474,0.37161 2.744901,0.31118 0.06043,-0.0604 -0.202603,-0.48122 -0.584512,-0.93509 -1.338399,-1.59060001 -0.701009,-3.03558001 0.857492,-1.94397001 0.866905,0.60721 4.810742,5.42280001 4.651773,5.68001001 -0.07263,0.11753 -1.483183,0.93439 -3.134553,1.81526 -2.085656,1.11252 -3.295434,1.60157 -3.961834,1.60157 -0.602097,0 -0.959343,-0.12587 -0.959343,-0.338 z' id='path1' /%3E%3C/g%3E%3C/svg%3E%0A");
+            animation-delay: 250ms;
+            transform: rotate(40deg) scaleY(-1);
+            filter: invert(31%) sepia(59%) saturate(1752%) hue-rotate(178deg) brightness(99%) contrast(94%);
+        }
+
+        .outcome--no::after,
+        .outcome--yes::after {
+            position: absolute;
+            top: 20%;
+            right: -48px;
+            width: 40px;
+            content: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8' standalone='no'%3F%3E%3C!-- Created with Inkscape (http://www.inkscape.org/) --%3E%3Csvg width='50' height='35.820999' viewBox='0 0 30.814696 9.4776393' version='1.1' id='svg1' xml:space='preserve' inkscape:version='1.4.4 (dcaf3e7d9e, 2026-05-05)' sodipodi:docname='arrow.svg' xmlns:inkscape='http://www.inkscape.org/namespaces/inkscape' xmlns:sodipodi='http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd' xmlns='http://www.w3.org/2000/svg' xmlns:svg='http://www.w3.org/2000/svg'%3E%3Csodipodi:namedview id='namedview1' pagecolor='%23ffffff' bordercolor='%23000000' borderopacity='0.25' inkscape:showpageshadow='2' inkscape:pageopacity='0.0' inkscape:pagecheckerboard='0' inkscape:deskcolor='%23d1d1d1' inkscape:document-units='px' inkscape:zoom='0.6148099' inkscape:cx='268.37564' inkscape:cy='473.31703' inkscape:window-width='1920' inkscape:window-height='1043' inkscape:window-x='0' inkscape:window-y='0' inkscape:window-maximized='1' inkscape:current-layer='layer1' /%3E%3Cdefs id='defs1' /%3E%3Cg inkscape:label='Camada 1' inkscape:groupmode='layer' id='layer1'%3E%3Cpath style='fill:%23000000' d='m 22.75423,9.1396107 c 0,-0.67029 0.85635,-1.53689 2.183072,-2.20919 1.62045,-0.82114 1.480122,-0.94445 -1.653905,-1.45329 -1.662335,-0.2699 -4.992287,-0.35921 -12.766146,-0.34239 -5.7844539,0.0125 -10.517187903507,-0.0603 -10.517187903507,-0.16171 0,-0.35435 2.923281003507,-1.29893 5.881637003507,-1.90051 2.613668,-0.53148 3.700723,-0.60257 8.8027379,-0.57564 3.901944,0.0206 6.689496,0.16953 8.455868,0.45177 1.449268,0.23158 2.684474,0.37161 2.744901,0.31118 0.06043,-0.0604 -0.202603,-0.48122 -0.584512,-0.93509 -1.338399,-1.59060001 -0.701009,-3.03558001 0.857492,-1.94397001 0.866905,0.60721 4.810742,5.42280001 4.651773,5.68001001 -0.07263,0.11753 -1.483183,0.93439 -3.134553,1.81526 -2.085656,1.11252 -3.295434,1.60157 -3.961834,1.60157 -0.602097,0 -0.959343,-0.12587 -0.959343,-0.338 z' id='path1' /%3E%3C/g%3E%3C/svg%3E%0A");
+            content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='64.6' viewBox='0 0 30.814696 9.4776393'%3E%3Cpath fill='%23000' d='m22.75423 9.13961c0-.67029.85635-1.53689 2.183072-2.20919 1.62045-.82114 1.480122-.94445-1.653905-1.45329-1.662335-.2699-4.992287-.35921-12.766146-.34239-5.7844539.0125-10.517187903507-.0603-10.517187903507-.16171 0-.35435 2.923281003507-1.29893 5.881637003507-1.90051 2.613668-.53148 3.700723-.60257 8.8027379-.57564 3.901944.0206 6.689496.16953 8.455868.45177 1.449268.23158 2.684474.37161 2.744901.31118.06043-.0604-.202603-.48122-.584512-.93509-1.338399-1.5906-.701009-3.03558.857492-1.94397.866905.60721 4.810742 5.4228 4.651773 5.68001-.07263.11753-1.483183.93439-3.134553 1.81526-2.085656 1.11252-3.295434 1.60157-3.961834 1.60157-.602097 0-.959343-.12587-.959343-.338z'/%3E%3C/svg%3E");
+            filter: invert(73%) sepia(67%) saturate(543%) hue-rotate(355deg) brightness(98%) contrast(93%);
+            animation: arrow-flow 900ms ease-in-out infinite alternate;
+            transform-origin: left center;
+        }
+
+        .outcome--no::after {
+            transform: rotate(45deg);
+        }
+
+        .outcome--yes::after {
+            transform: rotate(-45deg) scaleY(-1);
+        }
+
+        @keyframes arrow-flow {
+            from {
+                translate: 0 0;
+            }
+
+            to {
+                translate: 8px 0;
+            }
+        }
+
+        @keyframes branch-flow {
+            from {
+                translate: 0 0;
+            }
+
+            to {
+                translate: 5px -4px;
+            }
+        }
+
+        .outcome-label {
+            flex: 0 0 auto;
+            min-width: 58px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: #f47721;
+            color: #fff;
+            text-align: center;
+        }
+
+        .outcome--yes {
+            border-color: #0876b9;
+        }
+
+        .outcome--yes .outcome-label {
+            background: #0876b9;
+        }
+
+        .shield {
+            display: grid;
+            width: 35px;
+            height: 35px;
+            flex: 0 0 auto;
+            place-items: center;
+            border: 2px solid currentColor;
+            border-radius: 45% 45% 50% 50%;
+            color: #0876b9;
+            font-size: 1.25rem;
+        }
+
+        .sr-only {
+            position: absolute;
+            overflow: hidden;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            border: 0;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            clip-path: inset(50%);
+        }
+
+        @media (max-width: 1100px) {
+
+            h1.fluxo-title {
+                font-size: 24px;
+            }
+
+            h1.fluxo-title::before {
+                bottom: -80%;
+            }
+
+
+            .flowchart {
+                grid-template-columns: minmax(0, 1fr);
+                grid-template-rows: none;
+                row-gap: 28px;
+                padding: 38px 10px;
+                border-radius: 40px;
+            }
+
+            .stage {
+                display: grid;
+                width: 100%;
+                grid-column: 1;
+                grid-row: auto;
+                grid-template-columns: auto auto;
+                justify-content: center;
+                align-items: center;
+                column-gap: 14px;
+                row-gap: 8px;
+            }
+
+            .stage-number,
+            .stage-icon {
+                grid-row: 1;
+            }
+
+            .stage-icon {
+                margin-top: 0;
+            }
+
+            .stage h2 {
+                grid-column: 1 / -1;
+                grid-row: 2;
+                max-width: 240px;
+                margin-top: 0;
+            }
+
+            .stage[data-step="1"],
+            .stage[data-step="2"],
+            .stage[data-step="3"],
+            .stage[data-step="4"] {
+                grid-row: auto;
+            }
+
+            .stage::after {
+                top: auto;
+                right: auto;
+                bottom: -31px;
+                left: calc(50% - 12px);
+                content: "↓";
+                font-size: 1.75rem;
+                animation-name: arrow-flow-down;
+            }
+
+            .stage:hover::after,
+            .stage:focus-visible::after,
+            .stage.is-active::after {
+                transform: translateY(6px) scale(1.12);
+            }
+
+            @keyframes arrow-flow-down {
+                from {
+                    translate: 0 0;
+                }
+
+                to {
+                    translate: 0 7px;
+                }
+            }
+
+            .decision-area {
+                grid-column: 1;
+                grid-row: auto;
+                min-height: 190px;
+            }
+
+            .outcomes {
+                display: grid;
+                grid-column: 1;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                align-items: stretch;
+                gap: 20px;
+                width: 100%;
+            }
+
+            .stage[data-step="4"] {
+                grid-column: 1;
+                grid-row: auto;
+            }
+
+            .outcome--no,
+            .outcome--yes {
+                position: relative;
+                top: auto;
+                right: auto;
+                grid-column: 1;
+                grid-row: auto;
+                width: 100%;
+                max-width: none;
+                min-height: 100%;
+                flex-direction: column;
+                justify-content: flex-start;
+                gap: 8px;
+                padding: 14px 8px;
+                border-radius: 20px;
+                font-size: 0.8rem;
+                text-align: center;
+            }
+
+            .outcome--no {
+                grid-column: 1;
+            }
+
+            .outcome--yes {
+                grid-column: 2;
+            }
+
+            .outcome--no::before,
+            .outcome--yes::before {
+                top: -27px;
+                right: auto;
+                bottom: auto;
+                left: 50%;
+                content: "↓";
+                width: auto;
+                font-size: 1.5rem;
+                filter: none;
+                transform: translateX(-50%);
+                animation-name: branch-flow-down;
+            }
+
+            .outcome--no::after,
+            .outcome--yes::after {
+                top: auto;
+                right: auto;
+                bottom: -28px;
+                left: 50%;
+                width: auto;
+                content: "↓";
+                font-size: 1.5rem;
+                filter: none;
+                transform: translateX(-50%);
+                animation-name: branch-flow-down;
+            }
+
+            @keyframes branch-flow-down {
+                from {
+                    translate: 0 0;
+                }
+
+                to {
+                    translate: 0 5px;
+                }
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1 class="fluxo-title">Fluxo de encaminhamento de denúncias</h1>
+    <section class="page">
+        <section class="flowchart" aria-label="Etapas para encaminhamento de denúncias">
+            <article class="stage" data-step="1" tabindex="0" aria-label="Opção 01: Registro pelo cidadão">
+                <span class="stage-number" aria-hidden="true">01</span>
+                <span class="stage-icon" aria-hidden="true">
+                    <svg viewBox="0 0 48 48">
+                        <circle cx="24" cy="14" r="8"></circle>
+                        <path d="M8 41v-4c0-7 7-12 16-12s16 5 16 12v4M17 25l7 6 7-6"></path>
+                    </svg>
+                </span>
+                <h2>Registro pelo cidadão</h2>
+            </article>
+
+            <article class="stage" data-step="2" tabindex="0" aria-label="Opção 02: Recebimento pela ouvidoria">
+                <span class="stage-number" aria-hidden="true">02</span>
+                <span class="stage-icon" aria-hidden="true">
+                    <svg viewBox="0 0 48 48">
+                        <path
+                            d="M12 22v-5a12 12 0 0 1 24 0v5M10 22h5v11h-5zM33 22h5v11h-5zM15 34c2 4 5 6 9 6s7-2 9-6M24 28v5">
+                        </path>
+                        <circle cx="24" cy="18" r="7"></circle>
+                    </svg>
+                </span>
+                <h2>Recebimento pela ouvidoria</h2>
+            </article>
+
+            <article class="stage" data-step="3" tabindex="0" aria-label="Opção 03: Análise do relato pela ouvidoria">
+                <span class="stage-number" aria-hidden="true">03</span>
+                <span class="stage-icon" aria-hidden="true">
+                    <svg viewBox="0 0 48 48">
+                        <path d="M13 8h20v25H13zM9 12H7v28h22v-3M18 14h10M18 19h10M18 24h6"></path>
+                        <circle cx="29" cy="29" r="7"></circle>
+                        <path d="m34 34 6 6M25 29h8M29 25v8"></path>
+                    </svg>
+                </span>
+                <h2>Análise do relato pela ouvidoria</h2>
+            </article>
+
+            <div class="decision-area">
+                <div class="decision" id="decision" aria-live="polite">
+                    <span>É Denúncia?</span>
+                </div>
+            </div>
+
+            <div class="outcomes" aria-label="Possíveis encaminhamentos">
+                <div class="outcome outcome--no">
+                    <span class="outcome-label">NÃO</span>
+                    <span>Ouvidoria Geral — reclassificação para reclamação</span>
+                </div>
+                <div class="outcome outcome--yes">
+                    <span class="outcome-label">SIM</span>
+                    <span class="shield" aria-hidden="true">✓</span>
+                    <span>Controladoria Interna</span>
+                </div>
+            </div>
+
+            <article class="stage" data-step="4" tabindex="0" aria-label="Opção 04: Registro de respostas">
+                <span class="stage-number" aria-hidden="true">04</span>
+                <span class="stage-icon" aria-hidden="true">
+                    <svg viewBox="0 0 48 48">
+                        <path d="M13 7h17l7 7v27H13zM30 7v8h7M18 22h14M18 28h14M18 34h9"></path>
+                        <path d="m8 12-3 3v27h22l3-3"></path>
+                    </svg>
+                </span>
+                <h2>Registro de respostas</h2>
+            </article>
+        </section>
+        <p class="sr-only" id="interaction-hint">Passe o mouse ou use a tecla Tab para destacar a próxima etapa.</p>
+    </section>
+    <script>
+        const stages = document.querySelectorAll(".stage");
+        const decision = document.querySelector("#decision");
+
+        function activateStage(stage) {
+            stages.forEach((item) => item.classList.toggle("is-active", item === stage));
+            decision.classList.toggle("is-pulsing", stage.dataset.step === "3");
+        }
+
+        function clearStage(stage) {
+            if (document.activeElement === stage) return;
+            stage.classList.remove("is-active");
+            if (!document.querySelector(".stage.is-active[data-step='3']")) {
+                decision.classList.remove("is-pulsing");
+            }
+        }
+
+        stages.forEach((stage) => {
+            stage.addEventListener("mouseenter", () => activateStage(stage));
+            stage.addEventListener("mouseleave", () => clearStage(stage));
+            stage.addEventListener("focus", () => activateStage(stage));
+            stage.addEventListener("blur", () => clearStage(stage));
+        });
+    </script>
+</body>
+
+</html>
